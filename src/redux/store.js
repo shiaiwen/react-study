@@ -4,10 +4,14 @@
 // 引入 createStore  用于创建 store 对象
 
 import { createStore,applyMiddleware } from 'redux'
-import countReducer from './count_reducer'
+import reducers from './reducers'
+
+import { composeWithDevTools }  from 'redux-devtools-extension'
 // 异步 action
 
 import thunk from 'redux-thunk'
+// 汇总 reducer 
 
-// 默认暴露
-export default createStore(countReducer,applyMiddleware(thunk))
+// 默认暴露  
+// applyMiddleware(thunk)
+export default createStore(reducers,composeWithDevTools(applyMiddleware(thunk)))

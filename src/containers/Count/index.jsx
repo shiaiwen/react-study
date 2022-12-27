@@ -5,22 +5,22 @@ import { connect } from 'react-redux'
 // a 函数的返回值作为状态 传递 给UI 组件
 // 其中 n 为 props 的key value为组件的值
 import {
-  createIncrementAction,
-  createDecrementAction,
-  createIncrementAsyncAction
-} from '../../redux/count_action'
+  increment,
+  decrement,
+  incrementAsync
+} from '../../redux/actions/count'
 class Count extends Component {
   // 方法写在 state 同级
   increment = () => {
     // 获取用户要加的值
     // 1. 修改状态
     const { value } = this.selectNumber
-    this.props.increse(value * 1)
+    this.props.increment(value * 1)
   }
 
   decrement = () => {
     const { value } = this.selectNumber
-    this.props.decrese(value * 1)
+    this.props.decrement(value * 1)
   }
   // 奇数的时候再加
   incrementIfOdd = () => {
@@ -29,21 +29,22 @@ class Count extends Component {
     const { count } = this.props
     // 获取初始的值
     if (count % 2 !== 0) {
-      this.props.increse(value * 1)
+      this.props.increment(value * 1)
     }
   }
   incrementAsync = () => {
     // 获取用户要加的值
     const { value } = this.selectNumber
-    this.props.increseAsync(value * 1, 500)
+    this.props.incrementAsync(value * 1, 500)
   }
 
   render() {
-    console.log('UI组件接收到的props是', this.props)
-    const { count } = this.props
+    // console.log('UI组件接收到的props是', this.props)
+    const { count,persons } = this.props
     return (
       <div>
-        <h1>当前求和为: {count}</h1>
+        <h1>我是count组件</h1>
+        <h4>当前求和为: {count}, 下方人数为：{ persons }</h4>
         <select ref={c => (this.selectNumber = c)}>
           <option value='1'>1</option>
           <option value='2'>2</option>
@@ -57,12 +58,12 @@ class Count extends Component {
     )
   }
 }
-
-
-
-
-export default connect(state => ({ count: state }), {
-  increse: createIncrementAction,
-  decrese: createDecrementAction,
-  increseAsync: createIncrementAsyncAction
+// state 为状态
+export default connect(state => ({
+  count: state.count,
+  persons : state.persons.length
+}), {
+  increment,
+  decrement,
+  incrementAsync
 })(Count)

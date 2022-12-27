@@ -2,7 +2,7 @@
 // reducer函数会接到两个参数,分别为之前的状态preState,动作对象 action
 // Reducer
 // 形参的默认值
-import { INCREMENT, DECREMENT } from './constant'
+import { INCREMENT, DECREMENT } from '../constant'
 
 
 export default function countReducer(preState=0  , action) {
